@@ -1,68 +1,71 @@
 import 'package:flutter/material.dart';
 
-class CategoryFilter extends StatefulWidget {
-  const CategoryFilter({super.key});
+class CategoryFilter extends StatelessWidget {
+  final List<String> categories;
+  final String selectedCategory;
+  final Function(String) onSelected;
 
-  @override
-  State<CategoryFilter> createState() => _CategoryFilterState();
-}
-
-class _CategoryFilterState extends State<CategoryFilter> {
-  int selectedIndex = 0;
-  final categories = ['All', 'Men', 'Women', 'Jewelry', 'Electronics'];
+  const CategoryFilter({
+    super.key,
+    required this.categories,
+    required this.selectedCategory,
+    required this.onSelected,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
+    final colorScheme = Theme.of(context).colorScheme;
 
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Row(
-        children: List.generate(
-          categories.length,
-          (index) => Padding(
-            padding: EdgeInsets.only(right: 12),
+        children: List.generate(categories.length, (index) {
+          final category = categories[index];
+
+          return Padding(
+            padding: const EdgeInsets.only(right: 12),
             child: AnimatedContainer(
-              duration: Duration(milliseconds: 300),
+              duration: const Duration(milliseconds: 300),
               curve: Curves.easeInOut,
               child: ChoiceChip(
                 label: Text(
-                  categories[index],
+                  category,
                   style: TextStyle(
-                    color: selectedIndex == index
+                    color: selectedCategory == category
                         ? colorScheme.onPrimary
                         : colorScheme.onSurface,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                selected: selectedIndex == index,
-                onSelected: (bool selected) {
-                  setState(() {
-                    selectedIndex = selected ? index : selectedIndex;
-                  });
-                },
+                selected: selectedCategory == category,
+                onSelected: (_) => onSelected(category),
                 selectedColor: colorScheme.primary,
                 backgroundColor: colorScheme.surface,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
-                elevation: selectedIndex == index ? 2 : 0,
+                elevation: selectedCategory == category ? 2 : 0,
                 pressElevation: 1,
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                labelPadding: EdgeInsets.symmetric(horizontal: 4, vertical: 1),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
+                ),
+                labelPadding: const EdgeInsets.symmetric(
+                  horizontal: 4,
+                  vertical: 1,
+                ),
                 materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 side: BorderSide(
-                  color: selectedIndex == index
+                  color: selectedCategory == category
                       ? Colors.transparent
                       : colorScheme.outline.withValues(alpha: 0.4),
                   width: 1,
                 ),
               ),
             ),
-          ),
-        ),
+          );
+        }),
       ),
     );
   }

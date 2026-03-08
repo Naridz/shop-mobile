@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:myflutter/models/product.dart';
 
 class ProductCard extends StatelessWidget {
-  final Map<String, dynamic> product;
+  final Product product;
   const ProductCard({super.key, required this.product});
 
   @override
@@ -30,33 +31,56 @@ class ProductCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Stack(
-            children: [
-              //image
-              AspectRatio(
-                aspectRatio: 4/3,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
-                  child: Image.network(
-                    product['image'],
-                    width: double.infinity,
-                    // fit: BoxFit.fill,
+          Padding(
+            padding: EdgeInsets.all(screenWidth * 0.04),
+            child: Stack(
+              children: [
+                //image
+                AspectRatio(
+                  aspectRatio: 4 / 3,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(12),
+                    ),
+                    child: Image.network(
+                      product.image,
+                      width: double.infinity,
+                      fit: BoxFit.contain,
+                    ),
                   ),
                 ),
-              ),
-              Positioned(
-                left: 8,
-                top: 5,
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                  decoration: BoxDecoration(
-                    color: Colors.amber,
-                    borderRadius: BorderRadius.circular(4),
+                Positioned(
+                  left: 0,
+                  top: 0,
+                  child: Container(
+                    padding: EdgeInsets.fromLTRB(5, 2, 0, 2),
+                    decoration: BoxDecoration(
+                      color: theme.colorScheme.outline.withValues(alpha: 0.5),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          product.rating.rate.toString(),
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                        SizedBox(width: 1),
+                        Icon(
+                          Icons.star_rate_rounded,
+                          size: 14,
+                          color: Colors.amber,
+                        ),
+                      ],
+                    ),
                   ),
-                  child: Icon(Icons.star_rate_rounded, semanticLabel: 'rat'),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           Padding(
             padding: EdgeInsets.all(screenWidth * 0.02),
@@ -64,13 +88,13 @@ class ProductCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  product['title'],
+                  product.title,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
                 SizedBox(height: screenWidth * 0.01),
                 Text(
-                  product['category'],
+                  product.category,
                   style: TextStyle(
                     color: isDark ? Colors.grey[400] : Colors.grey[600],
                   ),
@@ -79,7 +103,7 @@ class ProductCard extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      '฿${product['price'].toString()}',
+                      '฿${product.price.toString()}',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     Spacer(),
