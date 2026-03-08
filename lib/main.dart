@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       valueListenable: themeNotifier,
       builder: (context, ThemeMode mode, child) {
         return MaterialApp(
-          title: 'Flutter Demo',
+          title: 'Shopping App',
           theme: AppTheme.lightTheme,
           darkTheme: AppTheme.darkTheme,
           themeMode: mode,
