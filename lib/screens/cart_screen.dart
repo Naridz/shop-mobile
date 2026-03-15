@@ -9,26 +9,33 @@ class CartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Cart")),
-      body: ValueListenableBuilder(
-        valueListenable: CartService.cartItems,
-        builder: (context, cartItems, _) {
-          if (cartItems.isEmpty) {
-            return const Center(child: Text("Your cart is empty"));
-          }
+      body: Column(
+        children: [
+          Expanded(
+            child: ValueListenableBuilder(
+              valueListenable: CartService.cartItems,
+              builder: (context, cartItems, _) {
+                if (cartItems.isEmpty) {
+                  return const Center(child: Text("Your cart is empty"));
+                }
 
-          return ListView.builder(
-            itemCount: cartItems.length,
-            itemBuilder: (context, index) {
-              final item = cartItems[index];
-              return _cardList(context, item);
-            },
-          );
-        },
+                return ListView.builder(
+                  itemCount: cartItems.length,
+                  itemBuilder: (context, index) {
+                    final item = cartItems[index];
+                    return _cartList(context, item);
+                  },
+                );
+              },
+            ),
+          ),
+          _cartTotal(context),
+        ],
       ),
     );
   }
 
-  Widget _cardList(BuildContext context, CartItem item) {
+  Widget _cartList(BuildContext context, CartItem item) {
     return Container(
       margin: EdgeInsets.fromLTRB(0, 8, 0, 8),
       decoration: BoxDecoration(
@@ -127,6 +134,51 @@ class CartScreen extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _cartTotal(BuildContext context) {
+    return ValueListenableBuilder(
+      valueListenable: CartService.cartItems,
+      builder: (context, cartItems, _) {
+        final total = cartItems.fold(
+          0.0,
+          (sum, item) => sum + item.product.price * item.quantity,
+        );
+        return Container(
+          padding: const EdgeInsets.all(24),
+          decoration: BoxDecoration(
+            color: Theme.of(context).cardColor,
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.05),
+                blurRadius: 10,
+                offset: const Offset(0, -0.5),
+              ),
+            ],
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Total',
+                style: Theme.of(
+                  context,
+                ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
+              ),
+              Text(
+                '฿${total.toStringAsFixed(2)}',
+                style: const TextStyle(
+                  color: Colors.deepOrange,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

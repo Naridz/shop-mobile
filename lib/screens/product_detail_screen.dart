@@ -63,7 +63,7 @@ class ProductDetailScreen extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        '฿${product.price.toString()}',
+                        '฿${product.price.toStringAsFixed(2)}',
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -111,7 +111,7 @@ class ProductDetailScreen extends StatelessWidget {
                           ],
                         ),
                         backgroundColor: Colors.green,
-                        duration: const Duration(seconds: 2),
+                        duration: const Duration(seconds: 1),
                       ),
                     );
                   },

@@ -8,7 +8,7 @@ class SearchProduct extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     return Padding(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       child: TextField(
         onChanged: onChanged,
         decoration: InputDecoration(
