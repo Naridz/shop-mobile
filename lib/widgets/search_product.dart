@@ -25,7 +25,7 @@ class SearchProduct extends StatelessWidget {
             color: isDark ? Colors.grey[400] : Colors.grey[600],
           ),
           filled: true,
-          fillColor: isDark ? Colors.grey[600] : Colors.grey[200],
+          fillColor: isDark ? Colors.grey[600] : Colors.grey[300],
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(50),
             borderSide: BorderSide.none,

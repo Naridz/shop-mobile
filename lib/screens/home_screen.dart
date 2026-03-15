@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myflutter/main.dart';
-import 'package:myflutter/services/api_product.dart';
+import 'package:myflutter/screens/cart_screen.dart';
+import 'package:myflutter/services/api_service.dart';
 import 'package:myflutter/widgets/category_filter.dart';
 import 'package:myflutter/widgets/product_list.dart';
 import 'package:myflutter/widgets/search_product.dart';
@@ -47,7 +48,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   const Spacer(),
 
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => CartScreen()),
+                      );
+                    },
                     icon: const Icon(Icons.shopping_cart_outlined),
                   ),
 

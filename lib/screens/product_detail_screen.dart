@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myflutter/models/product.dart';
+import 'package:myflutter/services/cart_service.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   final Product product;
@@ -99,6 +100,7 @@ class ProductDetailScreen extends StatelessWidget {
               Expanded(
                 child: ElevatedButton.icon(
                   onPressed: () {
+                    CartService.addToCart(product);
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Row(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myflutter/models/product.dart';
 import 'package:myflutter/screens/product_detail_screen.dart';
-import 'package:myflutter/services/api_product.dart';
+import 'package:myflutter/services/api_service.dart';
 import 'package:myflutter/widgets/product_card.dart';
 
 class ProductList extends StatefulWidget {

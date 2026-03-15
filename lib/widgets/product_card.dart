@@ -103,10 +103,20 @@ class ProductCard extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      '฿${product.price.toString()}',
+                      '฿${product.price.toStringAsFixed(2)}',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     Spacer(),
+                    Icon(
+                      Icons.remove_red_eye_outlined,
+                      size: 14,
+                      color: isDark ? Colors.grey[400] : Colors.grey[600],
+                    ),
+                    const SizedBox(width: 3),
+                    Text(
+                      product.rating.count.toString(),
+                      style: const TextStyle(fontSize: 12),
+                    ),
                   ],
                 ),
               ],
