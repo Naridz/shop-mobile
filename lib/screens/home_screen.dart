@@ -39,34 +39,101 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.all(16),
               child: Row(
                 children: [
-                  Image.network(
-                    'https://flutter.dev/assets/icon_flutter.4262c71228b7aa391e995fe5f1d57795.png',
-                    height: 20,
-                    width: 20,
+                  // App branding logo
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                        colors: [Color(0xFF2563EB), Color(0xFF60A5FA)],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: [
+                        BoxShadow(
+                          color: const Color(0xFF2563EB).withValues(alpha: 0.3),
+                          blurRadius: 10,
+                          offset: const Offset(0, 4),
+                        ),
+                      ],
+                    ),
+                    child: const Icon(
+                      Icons.shopping_bag_rounded,
+                      color: Colors.white,
+                      size: 24,
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'SHOPMART',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w800,
+                          letterSpacing: 1.5,
+                          color: Color(0xFF2563EB),
+                        ),
+                      ),
+                      Text(
+                        'Discover Amazing Products',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: isDark ? Colors.grey[400] : Colors.grey[600],
+                        ),
+                      ),
+                    ],
                   ),
 
                   const Spacer(),
 
-                  IconButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const CartScreen(),
-                        ),
-                      );
-                    },
-                    icon: const Icon(Icons.shopping_cart_outlined),
+                  // Cart button with badge potential
+                  Container(
+                    decoration: BoxDecoration(
+                      color: isDark
+                          ? Colors.white.withValues(alpha: 0.1)
+                          : Colors.grey[100],
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const CartScreen(),
+                          ),
+                        );
+                      },
+                      icon: const Icon(
+                        Icons.shopping_cart_outlined,
+                        color: Color(0xFF2563EB),
+                      ),
+                    ),
                   ),
 
-                  IconButton(
-                    onPressed: () {
-                      themeNotifier.value =
-                          themeNotifier.value == ThemeMode.light
-                          ? ThemeMode.dark
-                          : ThemeMode.light;
-                    },
-                    icon: Icon(isDark ? Icons.light_mode : Icons.dark_mode),
+                  const SizedBox(width: 8),
+
+                  // Theme toggle
+                  Container(
+                    decoration: BoxDecoration(
+                      color: isDark
+                          ? Colors.white.withValues(alpha: 0.1)
+                          : Colors.grey[100],
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: IconButton(
+                      onPressed: () {
+                        themeNotifier.value =
+                            themeNotifier.value == ThemeMode.light
+                                ? ThemeMode.dark
+                                : ThemeMode.light;
+                      },
+                      icon: Icon(
+                        isDark ? Icons.light_mode : Icons.dark_mode,
+                        color: isDark ? Colors.amber : Colors.grey[700],
+                      ),
+                    ),
                   ),
                 ],
               ),
